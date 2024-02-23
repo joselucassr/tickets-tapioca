@@ -4,7 +4,7 @@ export type Item = {
 	smallPriceType?: number;
 };
 
-export const tapiocasSalgadas: Item[] = [
+const tapiocasSalgadas: Item[] = [
 	{
 		name: 'Da Casa',
 		price: 20,
@@ -66,7 +66,7 @@ export const tapiocasSalgadas: Item[] = [
 	}
 ];
 
-export const tapiocasDoces: Item[] = [
+const tapiocasDoces: Item[] = [
 	{
 		name: 'Leite Condensado, Coco e Queijo',
 		price: 15,
@@ -144,7 +144,7 @@ export const tapiocasDoces: Item[] = [
 	}
 ];
 
-export const cuscuz: Item[] = [
+const cuscuz: Item[] = [
 	{
 		name: 'Carne de Sol, Calabresa, Requeijão e Queijo',
 		price: 10
@@ -170,7 +170,7 @@ export const cuscuz: Item[] = [
 		price: 10
 	},
 	{
-		name: 'Cuscuz Tudão',
+		name: 'Tudão',
 		price: 10
 	},
 	{
@@ -195,7 +195,7 @@ export const cuscuz: Item[] = [
 	}
 ];
 
-export const adicionaisTapCus: Item[] = [
+const adicionaisTapCus: Item[] = [
 	{
 		name: 'Tomate',
 		price: 2
@@ -214,9 +214,17 @@ export const adicionaisTapCus: Item[] = [
 	}
 ];
 
-export const caldos: Item[] = [
+const caldos: Item[] = [
 	{
-		name: 'Caldo do Dia',
+		name: 'Do Dia',
 		price: 10
 	}
 ];
+
+export const menu = {
+	tapiocasSalgadas,
+	tapiocasDoces,
+	cuscuz,
+	adicionaisTapCus,
+	caldos
+};
