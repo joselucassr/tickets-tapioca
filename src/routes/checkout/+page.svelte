@@ -168,6 +168,9 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+		position: sticky;
+		top: 0;
+		z-index: 10;
 	}
 
 	section {
