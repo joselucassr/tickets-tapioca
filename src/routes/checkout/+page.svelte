@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { createCart } from '$lib/cart.svelte';
 	import CheckoutItem from '$lib/components/checkoutItem.svelte';
 
@@ -29,26 +30,26 @@
 		for (let i = 0; i < xCart.cart.length; ++i) {
 			const cartItem = xCart.cart[i];
 
-			text += ` * ${cartItem.name}\n`;
+			text += `  * ${cartItem.name}\n`;
 			for (const additionalKey of Object.keys(cartItem.additionals)) {
 				if (cartItem.additionals[additionalKey].amount > 0) {
-					text += `  - ${cartItem.additionals[additionalKey].amount}x ${additionalKey}\n`;
+					text += `   - ${cartItem.additionals[additionalKey].amount}x ${additionalKey}\n`;
 				}
 			}
 
 			if (cartItem.obs) {
-				text += `  - ${cartItem.obs}\n`;
+				text += `   - ${cartItem.obs}\n`;
 			}
 
 			text += '\n';
 		}
 
-		text += ` Cliente: ${customerName}\n`;
-		text += ` ${getTime()}\n`;
-		text += '------------------------------\n';
+		text += `  Cliente: ${customerName}\n`;
+		text += `  ${getTime()}\n`;
+		text += '  ------------------------------';
 
-		console.log(text);
-		btPrint(text);
+		console.log(insertLineBreaks(text));
+		btPrint(insertLineBreaks(text));
 	}
 
 	function btPrint(prn: string) {
@@ -70,6 +71,35 @@
 		const formattedDate = `${hours}:${minutes} ${day}/${month}/${year}`;
 		return formattedDate;
 	}
+
+	function insertLineBreaks(text: string, maxLineLength = 27): string {
+		let loops = 0;
+		let lastSpace = 0;
+		let lineLength = 0;
+		for (let i = 0; i < text.length && loops < 5000; ++i, ++loops) {
+			lineLength += 1;
+
+			if (text[i] === ' ') {
+				lastSpace = i;
+			}
+
+			if (text[i] === '\n') {
+				lineLength = 0;
+			}
+
+			if (lineLength + 2 >= maxLineLength) {
+				text = text.slice(0, lastSpace) + '\n  ' + text.slice(lastSpace + 1);
+				lineLength = 0;
+			}
+		}
+		return text;
+	}
+
+	function restart() {
+		xCart.cart = [];
+		localStorage.setItem('customerName', '');
+		goto('/');
+	}
 </script>
 
 <section>
@@ -85,12 +115,13 @@
 	<button on:click={print}>Imprimir Pedido</button>
 </section>
 
-<button class="floating-btn"> Nova venda </button>
+<button on:click={() => restart()} class="floating-btn"> Nova venda </button>
 
 <style>
 	section {
 		display: flex;
 		flex-direction: column;
+		margin-bottom: 10rem;
 	}
 
 	.floating-btn {

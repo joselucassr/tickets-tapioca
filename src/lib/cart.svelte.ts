@@ -50,6 +50,8 @@ export function createCart() {
 
 	function removeByName(name: string) {
 		const itemIndex = cart.findIndex((item) => item.name === name);
+		if (itemIndex < 0) return;
+
 		const temp = cart;
 
 		temp.splice(itemIndex, 1);

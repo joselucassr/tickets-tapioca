@@ -26,10 +26,6 @@
 		{/if}
 	</div>
 	<div class="item-add">
-		<button on:click={() => (addClosed = !addClosed)}
-			><span class:up-chevron={addClosed} class="material-icons chevron">chevron_right</span> Adicionais</button
-		>
-
 		<div class:is-closed={addClosed}>
 			{#each menu.adicionaisTapCus as additionalItem}
 				<div class="additional">
@@ -55,12 +51,16 @@
 				<textarea bind:value={item.obs}>{item.obs}</textarea>
 			</div>
 		</div>
+
+		<button on:click={() => (addClosed = !addClosed)}
+			><span class:up-chevron={addClosed} class="material-icons chevron">chevron_right</span> Adicionais</button
+		>
 	</div>
 </div>
 
 <style>
 	.chevron {
-		transform: rotate(90deg);
+		transform: rotate(270deg);
 	}
 
 	.item-add {
@@ -102,7 +102,7 @@
 		display: none;
 	}
 
-	.chevron-up {
-		transform: rotate(270deg);
+	.up-chevron {
+		transform: rotate(90deg);
 	}
 </style>
