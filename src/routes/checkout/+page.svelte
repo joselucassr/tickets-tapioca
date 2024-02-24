@@ -27,10 +27,12 @@
 	function print() {
 		let text = '';
 
-		for (let i = 0; i < xCart.cart.length; ++i) {
-			const cartItem = xCart.cart[i];
+		const grouppedArr = groupAndCount(xCart.cart);
 
-			text += `  * ${cartItem.name}\n`;
+		for (let i = 0; i < grouppedArr.length; ++i) {
+			const cartItem = grouppedArr[i];
+
+			text += `  * ${cartItem.count > 1 ? `${cartItem.count}x ` : ''}${cartItem.name}\n`;
 			for (const additionalKey of Object.keys(cartItem.additionals)) {
 				if (cartItem.additionals[additionalKey].amount > 0) {
 					text += `   - ${cartItem.additionals[additionalKey].amount}x ${additionalKey}\n`;
@@ -93,6 +95,25 @@
 			}
 		}
 		return text;
+	}
+
+	function groupAndCount(arr: any[]) {
+		const map = new Map();
+
+		for (const item of arr) {
+			// Create a key for grouping (ignores the 'id')
+			const key = JSON.stringify(item, (k, v) => (k === 'id' ? undefined : v));
+
+			// Update count or add new entry
+			const entry = map.get(key);
+			if (entry) {
+				entry.count++;
+			} else {
+				map.set(key, { ...item, count: 1 });
+			}
+		}
+
+		return Array.from(map.values());
 	}
 
 	function restart() {
