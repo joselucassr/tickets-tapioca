@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { createCart } from '$lib/cart.svelte';
 	import type { Item } from '$lib/menu';
 
 	export let item: Item;
-	export let addToCart: (item: Item) => void;
-	export let removeFromCart: (item: Item) => void;
 	export let category: string;
 	export let amount: number;
+
+	let xCart = createCart();
 </script>
 
 <div class="item">
@@ -15,12 +16,16 @@
 	</div>
 	<div class="quantity">
 		<button
-			on:click={() => removeFromCart({ ...item, name: `${category} ${item.name}` })}
+			on:touchend={() => {
+				xCart.removeByName(`${category} ${item.name}`);
+			}}
 			class="material-icons">remove</button
 		>
 		{amount}
 		<button
-			on:click={() => addToCart({ ...item, name: `${category} ${item.name}` })}
+			on:touchend={() => {
+				xCart.insert({ ...item, name: `${category} ${item.name}` });
+			}}
 			class="material-icons">add</button
 		>
 	</div>

@@ -1,87 +1,21 @@
 <script lang="ts">
-	import type { Item } from '$lib/menu';
 	import ItemCard from '$lib/components/ItemCard.svelte';
 	import { menu } from '$lib/menu';
+	import { createCart } from '$lib/cart.svelte';
 
-	let cart = $state<CartItem[]>([]);
-
-	type CartItem = {
-		// TODO index
-		name: string;
-		price: number;
-		amount: number;
-		additional?: CartItem[];
-	};
-
-	function addToCart(item: Item) {
-		let cartItemIndex: number = 0;
-		const cartItem = cart.find((ci, index) => {
-			if (ci.name === item.name) {
-				cartItemIndex = index;
-				return true;
-			}
-
-			return false;
-		});
-
-		if (cartItem) {
-			let temp = [...cart];
-			temp[cartItemIndex].amount += 1;
-			cart = temp;
-		} else {
-			cart = [...cart, { name: item.name, price: item.price, amount: 1 }];
-		}
-	}
-
-	function removeFromCart(item: Item) {
-		let cartItemIndex: number = 0;
-		const cartItem = cart.find((ci, index) => {
-			if (ci.name === item.name) {
-				cartItemIndex = index;
-				return true;
-			}
-
-			return false;
-		});
-
-		if (cartItem) {
-			let temp = [...cart];
-			temp[cartItemIndex].amount -= 1;
-
-			if (temp[cartItemIndex].amount <= 0) {
-				temp.splice(cartItemIndex, 1);
-			}
-
-			cart = temp;
-		}
-	}
+	let xCart = createCart();
 
 	$effect(() => {
 		const savedCart = localStorage.getItem('cart');
-		savedCart && (cart = JSON.parse(savedCart));
+		savedCart && (xCart.cart = JSON.parse(savedCart));
 	});
 
 	$effect(() => {
-		localStorage.setItem('cart', JSON.stringify(cart));
+		localStorage.setItem('cart', JSON.stringify(xCart.cart));
 	});
 
-	function btPrint(prn: string) {
-		var S = '#Intent;scheme=rawbt;';
-		var P = 'package=ru.a402d.rawbtprinter;end;';
-		var textEncoded = encodeURI(prn);
-		window.location.href = 'intent:' + textEncoded + S + P;
-	}
-
-	function computeAmt() {
-		return cart.reduce((acc, cur) => cur.amount + acc, 0);
-	}
-
 	function checkCartAmount(name: string): number {
-		const cartItem = cart.find((i) => i.name === name);
-
-		if (!cartItem) return 0;
-
-		return cartItem.amount;
+		return xCart.cart.filter((item) => item.name === name).length;
 	}
 </script>
 
@@ -91,54 +25,30 @@
 	<h2>Tapiocas Salgadas</h2>
 	<section class="item-section">
 		{#each menu.tapiocasSalgadas as item}
-			<ItemCard
-				{item}
-				{addToCart}
-				{removeFromCart}
-				category="Tapioca"
-				amount={checkCartAmount(`Tapioca ${item.name}`)}
-			/>
+			<ItemCard {item} category="Tapioca" amount={checkCartAmount(`Tapioca ${item.name}`)} />
 		{/each}
 	</section>
 	<h2>Tapiocas Doces</h2>
 	<section class="item-section">
 		{#each menu.tapiocasDoces as item}
-			<ItemCard
-				{item}
-				{addToCart}
-				{removeFromCart}
-				category="Tapioca"
-				amount={checkCartAmount(`Tapioca ${item.name}`)}
-			/>
+			<ItemCard {item} category="Tapioca" amount={checkCartAmount(`Tapioca ${item.name}`)} />
 		{/each}
 	</section>
 	<h2>Cuscuz</h2>
 	<section class="item-section">
 		{#each menu.cuscuz as item}
-			<ItemCard
-				{item}
-				{addToCart}
-				{removeFromCart}
-				category="Cuscuz"
-				amount={checkCartAmount(`Cuscuz ${item.name}`)}
-			/>
+			<ItemCard {item} category="Cuscuz" amount={checkCartAmount(`Cuscuz ${item.name}`)} />
 		{/each}
 	</section>
 	<h2>Caldos</h2>
 	<section class="item-section">
 		{#each menu.caldos as item}
-			<ItemCard
-				{item}
-				{addToCart}
-				{removeFromCart}
-				category="Caldo"
-				amount={checkCartAmount(`Caldo ${item.name}`)}
-			/>
+			<ItemCard {item} category="Caldo" amount={checkCartAmount(`Caldo ${item.name}`)} />
 		{/each}
 	</section>
 </main>
 
-<button class="floating-btn"> {computeAmt()} Continuar </button>
+<a href="/checkout" class="floating-btn"> {xCart.cart.length} Continuar </a>
 
 <style>
 	main {

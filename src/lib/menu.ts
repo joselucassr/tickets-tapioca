@@ -4,6 +4,14 @@ export type Item = {
 	smallPriceType?: number;
 };
 
+export type CartItem = {
+	// TODO index
+	name: string;
+	price: number;
+	amount: number;
+	additional?: CartItem[];
+};
+
 const tapiocasSalgadas: Item[] = [
 	{
 		name: 'Da Casa',
@@ -209,7 +217,7 @@ const adicionaisTapCus: Item[] = [
 		price: 0
 	},
 	{
-		name: 'Requeijão',
+		name: 'Requeijao',
 		price: 0
 	}
 ];
