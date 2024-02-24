@@ -24,6 +24,10 @@
 			}
 		};
 	}
+
+	function scrollScreen(el: HTMLElement) {
+		setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 5);
+	}
 </script>
 
 <div use:detectClickOutside class="item">
@@ -41,28 +45,30 @@
 			• {item.obs}
 		</div>
 	{/if}
-	<div class="item-add" class:is-closed={addClosed}>
-		{#each menu.adicionaisTapCus as additionalItem}
-			<div class="additional">
-				<div>
-					{additionalItem.name}
-					R$ {additionalItem.price},00
+	{#if !addClosed}
+		<div class="item-add" use:scrollScreen>
+			{#each menu.adicionaisTapCus as additionalItem}
+				<div class="additional">
+					<div>
+						{additionalItem.name}
+						R$ {additionalItem.price},00
+					</div>
+					<div class="quantity">
+						<button
+							on:click={() => xCart.editAdditional(item.id, additionalItem.name, -1)}
+							class="material-icons">remove</button
+						>
+						{item.additionals[additionalItem.name].amount}
+						<button
+							on:click={() => xCart.editAdditional(item.id, additionalItem.name, 1)}
+							class="material-icons">add</button
+						>
+					</div>
 				</div>
-				<div class="quantity">
-					<button
-						on:click={() => xCart.editAdditional(item.id, additionalItem.name, -1)}
-						class="material-icons">remove</button
-					>
-					{item.additionals[additionalItem.name].amount}
-					<button
-						on:click={() => xCart.editAdditional(item.id, additionalItem.name, 1)}
-						class="material-icons">add</button
-					>
-				</div>
-			</div>
-		{/each}
-		<textarea bind:value={item.obs} placeholder="Outras Informações">{item.obs}</textarea>
-	</div>
+			{/each}
+			<textarea bind:value={item.obs} placeholder="Outras Informações">{item.obs}</textarea>
+		</div>
+	{/if}
 	<button on:click={() => (addClosed = !addClosed)} class="expand-btn">
 		<span class:up-chevron={addClosed} class="material-icons chevron">expand_more</span>
 		<span class="underline">Adicionais</span>
@@ -86,6 +92,7 @@
 		transition: all 0.15s ease-out;
 		padding: 0 1rem;
 		border-left: 4px solid var(--input-bg);
+		/* scroll-padding-top: 800px; */
 	}
 
 	.expand-btn {
@@ -93,6 +100,7 @@
 		align-items: center;
 		background: none;
 		border: none;
+		padding-bottom: 1rem;
 	}
 
 	.additional {
@@ -119,9 +127,8 @@
 		flex-direction: column;
 		justify-content: space-between;
 		border-bottom: 1px solid var(--input-bg);
-		padding-bottom: 1rem;
+		/* padding-bottom: 1rem; */
 		gap: 0.5rem;
-		scroll-padding-top: -500px;
 	}
 
 	.item-info {
@@ -130,6 +137,7 @@
 		justify-content: space-between;
 		background-color: inherit;
 		border: none;
+		padding-top: 2rem;
 	}
 
 	.item-info > h3 {
@@ -142,9 +150,5 @@
 		border: 2px solid var(--input-bg);
 		border-radius: 5px;
 		background-color: var(--background);
-	}
-
-	.is-closed {
-		display: none;
 	}
 </style>

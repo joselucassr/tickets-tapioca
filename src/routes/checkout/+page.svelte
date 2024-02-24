@@ -178,7 +178,7 @@
 		flex-direction: column;
 		margin-bottom: 10rem;
 		padding: 1rem;
-		gap: 2rem;
+		/* gap: 2rem; */
 	}
 
 	section > button {
