@@ -1,0 +1,26 @@
+{
+	"name": "Tickets Tapioca",
+	"short_name": "Tapioca",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#e8e8e8",
+	"theme_color": "#011627",
+	"description": "Gerenciamento de pedidos na Tapioca da Sol",
+	"icons": [
+		{
+			"src": "pwa-64x64.png",
+			"type": "image/png",
+			"sizes": "64x64"
+		},
+		{
+			"src": "pwa-192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "pwa-512x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	]
+}
