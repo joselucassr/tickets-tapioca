@@ -10,14 +10,6 @@
 	let filteredArr = $derived(filterArr());
 
 	$effect(() => {
-		console.log(filteredArr);
-	});
-
-	$effect(() => {
-		console.log(selectedMenu);
-	});
-
-	$effect(() => {
 		const savedCart = localStorage.getItem('cart');
 		savedCart && (xCart.cart = JSON.parse(savedCart));
 	});

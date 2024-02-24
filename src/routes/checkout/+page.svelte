@@ -5,6 +5,11 @@
 
 	let xCart = createCart();
 	let customerName = $state('');
+	let toPickup = $state(false);
+
+	$effect(() => {
+		console.log(toPickup);
+	});
 
 	$effect(() => {
 		const savedCart = localStorage.getItem('cart');
@@ -24,8 +29,21 @@
 		localStorage.setItem('customerName', customerName);
 	});
 
+	$effect(() => {
+		const savedToPickup = localStorage.getItem('toPickup');
+		savedToPickup && (toPickup = savedToPickup === 'true' ? true : false);
+	});
+
+	$effect(() => {
+		localStorage.setItem('toPickup', `${toPickup}`);
+	});
+
 	function print() {
 		let text = '';
+
+		if (toPickup) {
+			text += '  *** PARA VIAGEM ***\n\n';
+		}
 
 		const grouppedArr = groupAndCount(xCart.cart);
 
@@ -119,30 +137,68 @@
 	function restart() {
 		xCart.cart = [];
 		localStorage.setItem('customerName', '');
+		localStorage.setItem('toPickup', 'false');
 		goto('/');
 	}
 </script>
 
+<header>
+	<h1>Revise o Pedido</h1>
+	<div class="search-box">
+		<input bind:value={customerName} type="text" placeholder="Nome Cliente" />
+	</div>
+	<label class:label-selected={toPickup}>
+		<input bind:checked={toPickup} type="checkbox" />
+		Para viagem
+	</label>
+</header>
 <section>
 	{#each xCart.cart as item}
 		<CheckoutItem {item} />
 	{/each}
-
-	<div>
-		<h3>Nome Cliente</h3>
-		<input type="text" bind:value={customerName} />
-	</div>
-
-	<button on:click={print}>Imprimir Pedido</button>
+	<button on:click={print}><span class="material-icons">print</span> Imprimir Pedido</button>
 </section>
 
 <button on:click={() => restart()} class="floating-btn"> Nova venda </button>
 
 <style>
+	header {
+		padding: 1rem;
+		background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
 	section {
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 10rem;
+		padding: 1rem;
+		gap: 2rem;
+	}
+
+	section > button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		font-weight: bold;
+		font-size: 1.2rem;
+		color: var(--primary);
+		border: 2px solid var(--input-bg);
+		border-radius: 5px;
+		padding: 0.5rem 0;
+		color: var(--primary);
+	}
+
+	section > button > span {
+		color: inherit;
+	}
+
+	section > button:active {
+		background-color: var(--primary);
+		color: white;
 	}
 
 	.floating-btn {
@@ -151,5 +207,34 @@
 		left: 50%;
 		translate: -50% 0%;
 		font-size: 2rem;
+		background-color: var(--primary);
+		color: #fff;
+		text-decoration: none;
+		padding: 1rem;
+		font-size: 1.2rem;
+		border-radius: 10px;
+		font-weight: bold;
+	}
+
+	.search-box > input {
+		background-color: var(--background);
+		border: none;
+		padding: 0.5rem;
+		width: 100%;
+		border-radius: 5px;
+		border: 2px solid var(--input-bg);
+	}
+
+	label {
+		font-size: 1.2rem;
+		display: grid;
+		grid-template-columns: 1em auto;
+		gap: 0.5em;
+		font-weight: bold;
+		color: var(--input-bg);
+	}
+
+	.label-selected {
+		color: var(--primary);
 	}
 </style>

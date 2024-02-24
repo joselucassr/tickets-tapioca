@@ -9,75 +9,78 @@
 </script>
 
 <div class="item">
-	<div class="item-info">
+	<button on:click={() => (addClosed = !addClosed)} class="item-info">
 		<h3>{item.name}</h3>
 		<p>R$ {item.price},00</p>
-	</div>
-	<div>
-		{#each Object.keys(item.additionals) as additionalKey}
-			{#if item.additionals[additionalKey].amount > 0}
-				<div>{item.additionals[additionalKey].amount}x {additionalKey}</div>
-			{/if}
-		{/each}
-		{#if item.obs}
-			<div>
-				{item.obs}
-			</div>
+	</button>
+	{#each Object.keys(item.additionals) as additionalKey}
+		{#if item.additionals[additionalKey].amount > 0 && addClosed}
+			<div>• {item.additionals[additionalKey].amount}x {additionalKey}</div>
 		{/if}
-	</div>
-	<div class="item-add">
-		<div class:is-closed={addClosed}>
-			{#each menu.adicionaisTapCus as additionalItem}
-				<div class="additional">
-					<div>
-						{additionalItem.name}
-						R$ {additionalItem.price},00
-					</div>
-					<div class="quantity">
-						<button
-							on:click={() => xCart.editAdditional(item.id, additionalItem.name, -1)}
-							class="material-icons">remove</button
-						>
-						{item.additionals[additionalItem.name].amount}
-						<button
-							on:click={() => xCart.editAdditional(item.id, additionalItem.name, 1)}
-							class="material-icons">add</button
-						>
-					</div>
-				</div>
-			{/each}
-			<div>
-				<h3>Outras informações:</h3>
-				<textarea bind:value={item.obs}>{item.obs}</textarea>
-			</div>
+	{/each}
+	{#if item.obs && addClosed}
+		<div>
+			• {item.obs}
 		</div>
-
-		<button on:click={() => (addClosed = !addClosed)}
-			><span class:up-chevron={addClosed} class="material-icons chevron">chevron_right</span> Adicionais</button
-		>
+	{/if}
+	<div class="item-add" class:is-closed={addClosed}>
+		{#each menu.adicionaisTapCus as additionalItem}
+			<div class="additional">
+				<div>
+					{additionalItem.name}
+					R$ {additionalItem.price},00
+				</div>
+				<div class="quantity">
+					<button
+						on:click={() => xCart.editAdditional(item.id, additionalItem.name, -1)}
+						class="material-icons">remove</button
+					>
+					{item.additionals[additionalItem.name].amount}
+					<button
+						on:click={() => xCart.editAdditional(item.id, additionalItem.name, 1)}
+						class="material-icons">add</button
+					>
+				</div>
+			</div>
+		{/each}
+		<textarea bind:value={item.obs} placeholder="Outras Informações">{item.obs}</textarea>
 	</div>
+	<button on:click={() => (addClosed = !addClosed)} class="expand-btn">
+		<span class:up-chevron={addClosed} class="material-icons chevron">expand_more</span>
+		<span class="underline">Adicionais</span>
+	</button>
 </div>
 
 <style>
+	.underline {
+		text-decoration: underline;
+	}
+
 	.chevron {
-		transform: rotate(270deg);
+		transform: rotate(180deg);
+	}
+
+	.up-chevron {
+		transform: rotate(0deg);
 	}
 
 	.item-add {
 		transition: all 0.15s ease-out;
+		padding: 0 1rem;
+		border-left: 4px solid var(--input-bg);
 	}
 
-	.item-add > button {
+	.expand-btn {
 		display: flex;
 		align-items: center;
 		background: none;
 		border: none;
-		text-decoration: underline;
 	}
 
 	.additional {
 		display: flex;
 		justify-content: space-between;
+		margin: 1rem 0;
 	}
 
 	.quantity {
@@ -85,24 +88,44 @@
 		align-items: center;
 		font-size: 1.2rem;
 		font-weight: bold;
+		gap: 0.5rem;
+	}
+
+	.quantity > button {
+		border: none;
+		background-color: inherit;
 	}
 
 	.item {
 		display: flex;
 		flex-direction: column;
+		justify-content: space-between;
+		border-bottom: 1px solid var(--input-bg);
+		padding-bottom: 1rem;
+		gap: 0.5rem;
 	}
 
 	.item-info {
+		text-align: left;
 		display: flex;
 		justify-content: space-between;
+		background-color: inherit;
+		border: none;
+	}
+
+	.item-info > h3 {
+		width: 70%;
+	}
+
+	textarea {
 		width: 100%;
+		padding: 0.5rem;
+		border: 2px solid var(--input-bg);
+		border-radius: 5px;
+		background-color: var(--background);
 	}
 
 	.is-closed {
 		display: none;
-	}
-
-	.up-chevron {
-		transform: rotate(90deg);
 	}
 </style>
