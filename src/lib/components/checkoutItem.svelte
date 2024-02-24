@@ -6,9 +6,27 @@
 	let xCart = createCart();
 
 	let addClosed = $state(true);
+
+	function detectClickOutside(el: HTMLElement) {
+		function handleClick(event: MouseEvent) {
+			const targetEl = event.target as HTMLElement;
+
+			if (el && !el.contains(targetEl)) {
+				addClosed = true;
+			}
+		}
+
+		document.addEventListener('click', handleClick);
+
+		return {
+			destroy() {
+				document.removeEventListener('click', handleClick);
+			}
+		};
+	}
 </script>
 
-<div class="item">
+<div use:detectClickOutside class="item">
 	<button on:click={() => (addClosed = !addClosed)} class="item-info">
 		<h3>{item.name}</h3>
 		<p>R$ {item.price},00</p>
@@ -103,6 +121,7 @@
 		border-bottom: 1px solid var(--input-bg);
 		padding-bottom: 1rem;
 		gap: 0.5rem;
+		scroll-padding-top: -500px;
 	}
 
 	.item-info {
