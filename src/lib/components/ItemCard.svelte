@@ -3,7 +3,6 @@
 	import type { Item } from '$lib/menu';
 
 	export let item: Item;
-	export let category: string;
 	export let amount: number;
 
 	let xCart = createCart();
@@ -17,14 +16,14 @@
 	<div class="quantity">
 		<button
 			on:touchend={() => {
-				xCart.removeByName(`${category} ${item.name}`);
+				xCart.removeByName(`${item.name}`);
 			}}
 			class="material-icons">remove</button
 		>
 		{amount}
 		<button
 			on:touchend={() => {
-				xCart.insert({ ...item, name: `${category} ${item.name}` });
+				xCart.insert({ ...item, name: `${item.name}` });
 			}}
 			class="material-icons">add</button
 		>

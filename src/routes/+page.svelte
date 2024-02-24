@@ -5,6 +5,13 @@
 
 	let xCart = createCart();
 	let selectedMenu = $state('Tapiocas Salgadas');
+	let searchString = $state('');
+
+	let filteredArr = $derived(filterArr());
+
+	$effect(() => {
+		console.log(filteredArr);
+	});
 
 	$effect(() => {
 		console.log(selectedMenu);
@@ -30,52 +37,73 @@
 	function checkSelected(menuName: string) {
 		return selectedMenu === menuName;
 	}
+
+	function filterArr() {
+		const fullArr = [
+			...menu.tapiocasSalgadas,
+			...menu.tapiocasDoces,
+			...menu.cuscuz,
+			...menu.caldos
+		];
+
+		return fullArr.filter((item) =>
+			item.name.toLocaleLowerCase().includes(searchString.toLocaleLowerCase())
+		);
+	}
 </script>
 
 <header>
 	<h1>Criando novo Pedido</h1>
 	<div class="search-box">
 		<span class="material-icons">search</span>
-		<input type="text" placeholder="Procurar lanche" />
+		<input bind:value={searchString} type="text" placeholder="Procurar lanche" />
+		<button on:click={() => (searchString = '')} class="material-icons">close</button>
 	</div>
 	<div class="menu-options">
-		<button class:selected-menu={checkSelected('Tapiocas Salgadas')} on:click={changeMenu}
-			>Tapiocas Salgadas</button
-		>
-		<button class:selected-menu={checkSelected('Tapiocas Doces')} on:click={changeMenu}
-			>Tapiocas Doces</button
-		>
-		<button class:selected-menu={checkSelected('Cuscuz')} on:click={changeMenu}>Cuscuz</button>
-		<button class:selected-menu={checkSelected('Caldos')} on:click={changeMenu}>Caldos</button>
+		{#if searchString.length > 0}
+			<button class="selected-menu">Resultado Pesquisa</button>
+		{:else}
+			<button class:selected-menu={checkSelected('Tapiocas Salgadas')} on:click={changeMenu}
+				>Tapiocas Salgadas</button
+			>
+			<button class:selected-menu={checkSelected('Tapiocas Doces')} on:click={changeMenu}
+				>Tapiocas Doces</button
+			>
+			<button class:selected-menu={checkSelected('Cuscuz')} on:click={changeMenu}>Cuscuz</button>
+			<button class:selected-menu={checkSelected('Caldos')} on:click={changeMenu}>Caldos</button>
+		{/if}
 	</div>
 </header>
 
 <main>
-	{#if selectedMenu === 'Tapiocas Salgadas'}
+	{#if searchString.length > 0}
+		<section class="item-section">
+			{#each filteredArr as item}
+				<ItemCard {item} amount={checkCartAmount(`${item.name}`)} />
+			{/each}
+		</section>
+	{:else if selectedMenu === 'Tapiocas Salgadas'}
 		<section class="item-section">
 			{#each menu.tapiocasSalgadas as item}
-				<ItemCard {item} category="Tapioca" amount={checkCartAmount(`Tapioca ${item.name}`)} />
+				<ItemCard {item} amount={checkCartAmount(`${item.name}`)} />
 			{/each}
 		</section>
-	{/if}
-	{#if selectedMenu === 'Tapiocas Doces'}
+	{:else if selectedMenu === 'Tapiocas Doces'}
 		<section class="item-section">
 			{#each menu.tapiocasDoces as item}
-				<ItemCard {item} category="Tapioca" amount={checkCartAmount(`Tapioca ${item.name}`)} />
+				<ItemCard {item} amount={checkCartAmount(`${item.name}`)} />
 			{/each}
 		</section>
-	{/if}
-	{#if selectedMenu === 'Cuscuz'}
+	{:else if selectedMenu === 'Cuscuz'}
 		<section class="item-section">
 			{#each menu.cuscuz as item}
-				<ItemCard {item} category="Cuscuz" amount={checkCartAmount(`Cuscuz ${item.name}`)} />
+				<ItemCard {item} amount={checkCartAmount(`${item.name}`)} />
 			{/each}
 		</section>
-	{/if}
-	{#if selectedMenu === 'Caldos'}
+	{:else if selectedMenu === 'Caldos'}
 		<section class="item-section">
 			{#each menu.caldos as item}
-				<ItemCard {item} category="Caldo" amount={checkCartAmount(`Caldo ${item.name}`)} />
+				<ItemCard {item} amount={checkCartAmount(`${item.name}`)} />
 			{/each}
 		</section>
 	{/if}
@@ -125,10 +153,17 @@
 		color: var(--input-text);
 		padding: 0 1rem;
 		border-radius: 5px;
+		gap: 0.25rem;
 	}
 
 	.search-box > span {
 		color: inherit;
+	}
+
+	.search-box > button {
+		color: inherit;
+		border: none;
+		background-color: inherit;
 	}
 
 	.search-box > input {

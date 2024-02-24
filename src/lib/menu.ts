@@ -14,61 +14,61 @@ export type CartItem = {
 
 const tapiocasSalgadas: Item[] = [
 	{
-		name: 'Da Casa',
+		name: 'Tapioca Da Casa',
 		price: 20,
 		smallPriceType: 2
 	},
 	{
-		name: 'Gorda',
+		name: 'Tapioca Gorda',
 		price: 20,
 		smallPriceType: 2
 	},
 	{
-		name: 'Carne de Sol, Requeijão e Queijo',
+		name: 'Tapioca Carne de Sol, Requeijão e Queijo',
 		price: 15,
 		smallPriceType: 2
 	},
 	{
-		name: 'Frango, Calabresa, Requeijão e Queijo',
+		name: 'Tapioca Frango, Calabresa, Requeijão e Queijo',
 		price: 15,
 		smallPriceType: 2
 	},
 	{
-		name: 'Gordinha',
+		name: 'Tapioca Gordinha',
 		price: 10
 	},
 	{
-		name: 'Vegetariana',
+		name: 'Tapioca Vegetariana',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Calabresa com Queijo',
+		name: 'Tapioca Calabresa com Queijo',
 		price: 10,
 		smallPriceType: 1
 	},
 	{
-		name: 'Presunto e Queijo',
+		name: 'Tapioca Presunto e Queijo',
 		price: 8,
 		smallPriceType: 1
 	},
 	{
-		name: 'Frango com Queijo',
+		name: 'Tapioca Frango com Queijo',
 		price: 8,
 		smallPriceType: 1
 	},
 	{
-		name: 'Queijo',
+		name: 'Tapioca Queijo',
 		price: 7,
 		smallPriceType: 1
 	},
 	{
-		name: 'Manteiga',
+		name: 'Tapioca Manteiga',
 		price: 5,
 		smallPriceType: 1
 	},
 	{
-		name: 'Frango com Requeijão',
+		name: 'Tapioca Frango com Requeijão',
 		price: 5,
 		smallPriceType: 1
 	}
@@ -76,77 +76,77 @@ const tapiocasSalgadas: Item[] = [
 
 const tapiocasDoces: Item[] = [
 	{
-		name: 'Leite Condensado, Coco e Queijo',
+		name: 'Tapioca Leite Condensado, Coco e Queijo',
 		price: 15,
 		smallPriceType: 2
 	},
 	{
-		name: 'Banana e Chocolate',
+		name: 'Tapioca Banana e Chocolate',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Banana com Queijo',
+		name: 'Tapioca Banana com Queijo',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Brigadeiro com Queijo',
+		name: 'Tapioca Brigadeiro com Queijo',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Romeu e Julieta',
+		name: 'Tapioca Romeu e Julieta',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Leite Condensado e Coco',
+		name: 'Tapioca Leite Condensado e Coco',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Chocolate e Coco',
+		name: 'Tapioca Chocolate e Coco',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Brigadeiro e Coco',
+		name: 'Tapioca Brigadeiro e Coco',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Morango com Chocolate',
+		name: 'Tapioca Morango com Chocolate',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Morango com Brigadeiro',
+		name: 'Tapioca Morango com Brigadeiro',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Paçoca com Chocolate',
+		name: 'Tapioca Paçoca com Chocolate',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Paçoca com Brigadeiro',
+		name: 'Tapioca Paçoca com Brigadeiro',
 		price: 10,
 		smallPriceType: 2
 	},
 	{
-		name: 'Banana com Canela',
+		name: 'Tapioca Banana com Canela',
 		price: 5,
 		smallPriceType: 1
 	},
 	{
-		name: 'Chocolate',
+		name: 'Tapioca Chocolate',
 		price: 5,
 		smallPriceType: 1
 	},
 	{
-		name: 'Brigadeiro',
+		name: 'Tapioca Brigadeiro',
 		price: 5,
 		smallPriceType: 1
 	}
@@ -154,51 +154,51 @@ const tapiocasDoces: Item[] = [
 
 const cuscuz: Item[] = [
 	{
-		name: 'Carne de Sol, Calabresa, Requeijão e Queijo',
+		name: 'Cuscuz Carne de Sol, Calabresa, Requeijão e Queijo',
 		price: 10
 	},
 	{
-		name: 'Carne de Sol, Requeijão e Queijo',
+		name: 'Cuscuz Carne de Sol, Requeijão e Queijo',
 		price: 10
 	},
 	{
-		name: 'Frango, Calabresa e Queijo',
+		name: 'Cuscuz Frango, Calabresa e Queijo',
 		price: 10
 	},
 	{
-		name: 'Vegetariano',
+		name: 'Cuscuz Vegetariano',
 		price: 10
 	},
 	{
-		name: 'Calabresa, Requeijão e Queijo',
+		name: 'Cuscuz Calabresa, Requeijão e Queijo',
 		price: 10
 	},
 	{
-		name: 'Carne Moída',
+		name: 'Cuscuz Carne Moída',
 		price: 10
 	},
 	{
-		name: 'Tudão',
+		name: 'Cuscuz Tudão',
 		price: 10
 	},
 	{
-		name: 'Frango, Requeijão e Queijo',
+		name: 'Cuscuz Frango, Requeijão e Queijo',
 		price: 8
 	},
 	{
-		name: 'Presunto e Queijo',
+		name: 'Cuscuz Presunto e Queijo',
 		price: 8
 	},
 	{
-		name: 'Salsicha com Molho',
+		name: 'Cuscuz Salsicha com Molho',
 		price: 8
 	},
 	{
-		name: 'Queijo',
+		name: 'Cuscuz Queijo',
 		price: 7
 	},
 	{
-		name: 'Manteiga',
+		name: 'Cuscuz Manteiga',
 		price: 5
 	}
 ];
@@ -224,7 +224,7 @@ const adicionaisTapCus: Item[] = [
 
 const caldos: Item[] = [
 	{
-		name: 'Do Dia',
+		name: 'Caldo Do Dia',
 		price: 10
 	}
 ];
