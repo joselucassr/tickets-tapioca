@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import 'material-icons/iconfont/material-icons.css';
 
+:root {
+	--primary: #011627;
+	--background: #e8e8e8;
+	--input-bg: #b2b9bd;
+	--input-text: #a2a9ad;
+}
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Nunito', sans-serif;
+	color: var(--primary);
+}
+
+body {
+	background-color: var(--background);
 }

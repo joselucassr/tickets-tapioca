@@ -35,6 +35,14 @@
 	.item {
 		display: flex;
 		justify-content: space-between;
+		width: 100%;
+	}
+
+	.details {
+		width: 70%;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
 	}
 
 	.quantity {
@@ -42,5 +50,11 @@
 		align-items: center;
 		font-size: 1.2rem;
 		font-weight: bold;
+		gap: 0.5rem;
+	}
+
+	button {
+		border: none;
+		background-color: inherit;
 	}
 </style>
