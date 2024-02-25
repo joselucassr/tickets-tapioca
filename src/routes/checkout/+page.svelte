@@ -8,10 +8,6 @@
 	let toPickup = $state(false);
 
 	$effect(() => {
-		console.log(toPickup);
-	});
-
-	$effect(() => {
 		const savedCart = localStorage.getItem('cart');
 		savedCart && (xCart.cart = JSON.parse(savedCart));
 	});
@@ -68,7 +64,7 @@
 		text += `  ${getTime()}\n`;
 		text += '  ------------------------------';
 
-		console.log(insertLineBreaks(text));
+		// console.log(insertLineBreaks(text));
 		btPrint(insertLineBreaks(text));
 	}
 
